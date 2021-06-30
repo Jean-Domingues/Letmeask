@@ -8,29 +8,40 @@ import { auth } from './services/firebase';
 import { Home } from './pages/Home';
 import { NewRoom } from './pages/NewRoom';
 
-export const AuthContext = createContext({} as any);
+type User = {
+  id: string;
+  name: string;
+  avatar: string;
+};
+
+type AuthContextType = {
+  user: User | undefined;
+  sigInWithGoogle: () => void;
+};
+
+export const AuthContext = createContext({} as AuthContextType);
 
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<User>();
 
   async function sigInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
 
-    auth.signInWithPopup(provider).then((result) => {
-      if (result.user) {
-        const { displayName, photoURL, uid } = result.user;
+    const result = await auth.signInWithPopup(provider);
 
-        if (!displayName || !photoURL) {
-          throw new Error('Usuário sem informações suficientes');
-        }
+    if (result.user) {
+      const { displayName, photoURL, uid } = result.user;
 
-        setUser({
-          id: uid, 
-          name: displayName,
-          avatar: photoURL
-        })
+      if (!displayName || !photoURL) {
+        throw new Error('Usuário sem informações suficientes');
       }
-    });
+
+      setUser({
+        id: uid,
+        name: displayName,
+        avatar: photoURL,
+      });
+    }
   }
 
   return (
