@@ -5,7 +5,7 @@ import '../styles/room.scss'
 
 export function Room() {
   return (
-    <div id='page-rom'>
+    <div id='page-room'>
       <header>
         <div className='content'>
           <img src={logoImg} alt='LetMeAsk' />
@@ -13,8 +13,8 @@ export function Room() {
         </div>
       </header>
 
-      <main className='content'>
-        <div className='romm-title'>
+      <main>
+        <div className='room-title'>
           <h1>Sala di fi di puta</h1>
           <span>4 perguntas</span>
         </div>
