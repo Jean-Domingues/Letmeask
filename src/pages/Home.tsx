@@ -27,9 +27,7 @@ export function Home() {
 
   async function handleJoinRoom(event: FormEvent) {
     event.preventDefault();
-    console.log(roomCode);
     
-
     if (roomCode.trim() === '') {
       return;
     }
