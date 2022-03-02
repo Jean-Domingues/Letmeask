@@ -124,6 +124,11 @@ export function Room() {
           <textarea
             placeholder='O que você quer perguntar?'
             onChange={(event) => setNewQuestion(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                handleSenQuestion(event)
+              }
+            }}
             value={newQuestion}
           />
           <div className='form-footer'>
