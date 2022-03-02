@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { FormEvent, useState } from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import logoImg from '../assets/images/logo.svg';
 
@@ -54,6 +55,7 @@ export function Room() {
     const roomRef = database.ref(`rooms/${roomId}`);
 
     roomRef.on('value', (room) => {
+      console.log('OLA OLA OLA');
       const databaseRoom = room.val();
       const firebaseQuestions: FirebaseQuestions = databaseRoom.questions ?? {};
 
@@ -94,11 +96,9 @@ export function Room() {
       };
 
       await database.ref(`rooms/${roomId}/questions`).push(question);
-
-      alert('Pergunta enviada!');
       setNewQuestion('');
     } catch (error) {
-      throw new Error(error);
+      throw new Error('error');
     }
   }
 
@@ -106,18 +106,26 @@ export function Room() {
     <div id='page-room'>
       <header>
         <div className='content'>
-          <img src={logoImg} alt='LetMeAsk' />
+          <Link to='/'>
+            <img src={logoImg} alt='LetMeAsk' />
+          </Link>
           <RoomCode code={roomId} />
         </div>
       </header>
 
       <main>
         <div className='room-title'>
-          <h1>Sala {title}</h1>
-          {questions.length > 0 && <span>{questions.length > 1 ? `${questions.length} perguntas` : `${questions.length} pergunta`}</span>}
+          <h1>Sala - {title}</h1>
+          {questions.length > 0 && (
+            <span>{questions.length > 1 ? `${questions.length} perguntas` : `${questions.length} pergunta`}</span>
+          )}
         </div>
         <form onSubmit={handleSenQuestion}>
-          <textarea placeholder='O que você quer perguntar?' onChange={(event) => setNewQuestion(event.target.value)} value={newQuestion} />
+          <textarea
+            placeholder='O que você quer perguntar?'
+            onChange={(event) => setNewQuestion(event.target.value)}
+            value={newQuestion}
+          />
           <div className='form-footer'>
             {user ? (
               <div className='user-info'>

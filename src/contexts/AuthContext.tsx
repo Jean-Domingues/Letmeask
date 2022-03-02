@@ -1,5 +1,5 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
-import { auth, firebase } from "../services/firebase";
+import { createContext, ReactNode, useEffect, useState } from 'react';
+import { auth, firebase } from '../services/firebase';
 
 type User = {
   id: string;
@@ -13,12 +13,12 @@ type AuthContextType = {
 };
 
 type AuthContextProviderProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 export const AuthContext = createContext({} as AuthContextType);
 
-export function AuthContextProvider(props : AuthContextProviderProps) {
+export function AuthContextProvider(props: AuthContextProviderProps) {
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
@@ -63,10 +63,5 @@ export function AuthContextProvider(props : AuthContextProviderProps) {
     }
   }
 
-   return (
-    <AuthContext.Provider value={{ user, sigInWithGoogle }}> 
-      {props.children}
-    </AuthContext.Provider>
-    
-   )
+  return <AuthContext.Provider value={{ user, sigInWithGoogle }}>{props.children}</AuthContext.Provider>;
 }

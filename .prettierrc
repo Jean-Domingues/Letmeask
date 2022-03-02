@@ -1,8 +1,8 @@
-{ 
-  "printWidth": 140,
-  "singleQuote": true, 
+{
+  "printWidth": 120,
+  "singleQuote": true,
   "trailingComma": "es5",
-  "semi": true, 
+  "semi": true,
   "endOfLine": "lf",
   "jsxSingleQuote": true
 }
